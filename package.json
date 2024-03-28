@@ -29,6 +29,7 @@
     "license.txt"
   ],
   "scripts": {
+    "link-xilytix": "npm link @xilytix/sysutils",
     "lint": "eslint -c .eslintrc.json --ext .ts src/",
     "build": "tsc --build ./tsconfig.json",
     "force-build": "tsc --build --force ./tsconfig.json",
