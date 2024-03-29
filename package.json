@@ -43,7 +43,7 @@
     "publish": "npm publish --access=public"
   },
   "dependencies": {
-    "@xilytix/sysutils": "^0.0.2"
+    "@xilytix/sysutils": "^0.0.3"
   },
   "devDependencies": {
     "@microsoft/api-extractor": "^7.43.0",
