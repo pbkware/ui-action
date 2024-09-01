@@ -4,10 +4,10 @@
 
 ```ts
 
-import { Decimal } from '@xilytix/sysutils';
 import { Integer } from '@xilytix/sysutils';
 import { ModifierKey } from '@xilytix/sysutils';
 import { MultiEvent } from '@xilytix/sysutils';
+import { SysDecimal } from '@xilytix/sysutils';
 
 // @public (undocumented)
 export class BooleanUiAction extends UiAction {
@@ -78,15 +78,15 @@ export namespace DateUiAction {
 // @public (undocumented)
 export class DecimalUiAction extends UiAction {
     // (undocumented)
-    commitValue(value: Decimal | undefined, typeId: UiAction.CommitTypeId): void;
+    commitValue(value: SysDecimal | undefined, typeId: UiAction.CommitTypeId): void;
     // (undocumented)
-    get definedValue(): Decimal;
+    get definedValue(): SysDecimal;
     // (undocumented)
     get options(): DecimalUiAction.Options;
     // (undocumented)
     pushOptions(options: DecimalUiAction.Options): void;
     // (undocumented)
-    pushValue(value: Decimal | undefined): void;
+    pushValue(value: SysDecimal | undefined): void;
     // (undocumented)
     protected repushValue(newEdited: boolean): void;
     // (undocumented)
@@ -94,7 +94,7 @@ export class DecimalUiAction extends UiAction {
     // (undocumented)
     unsubscribePushEvents(subscriptionId: MultiEvent.SubscriptionId): void;
     // (undocumented)
-    get value(): Decimal | undefined;
+    get value(): SysDecimal | undefined;
     // (undocumented)
     get valueUndefined(): boolean;
 }
@@ -102,7 +102,7 @@ export class DecimalUiAction extends UiAction {
 // @public (undocumented)
 export namespace DecimalUiAction {
     const // (undocumented)
-    undefinedDecimal: Decimal;
+    undefinedDecimal: SysDecimal;
     // (undocumented)
     export interface Options {
         // (undocumented)
@@ -130,7 +130,7 @@ export namespace DecimalUiAction {
         value?: ValuePushEventHander;
     }
     // (undocumented)
-    export type ValuePushEventHander = (this: void, value: Decimal | undefined, edited: boolean) => void;
+    export type ValuePushEventHander = (this: void, value: SysDecimal | undefined, edited: boolean) => void;
     const // (undocumented)
     defaultOptions: Options;
 }

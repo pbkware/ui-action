@@ -1,30 +1,30 @@
 // (c) 2024 Xilytix Pty Ltd
 
-import { Decimal, Integer, MultiEvent, newDecimal, newUndefinableDecimal } from '@xilytix/sysutils';
+import { Integer, MultiEvent, newDecimal, newUndefinableDecimal, SysDecimal } from '@xilytix/sysutils';
 import { UiAction } from './ui-action';
 
 /** @public */
 export class DecimalUiAction extends UiAction {
 
-    private _value: Decimal | undefined;
-    private _definedValue: Decimal = DecimalUiAction.undefinedDecimal;
+    private _value: SysDecimal | undefined;
+    private _definedValue: SysDecimal = DecimalUiAction.undefinedDecimal;
     private _options = DecimalUiAction.defaultOptions;
 
     private _decimalPushMultiEvent = new MultiEvent<DecimalUiAction.PushEventHandlersInterface>();
 
     get valueUndefined() { return this._value === undefined; }
 
-    get value() { return this._value; }
-    get definedValue() { return this._definedValue; }
+    get value(): SysDecimal | undefined { return this._value; }
+    get definedValue(): SysDecimal { return this._definedValue; }
     get options() { return this._options; }
 
-    commitValue(value: Decimal | undefined, typeId: UiAction.CommitTypeId) {
+    commitValue(value: SysDecimal | undefined, typeId: UiAction.CommitTypeId) {
         this._value = value; // owns value
         this.setDefinedValue();
         this.commit(typeId);
     }
 
-    pushValue(value: Decimal | undefined) {
+    pushValue(value: SysDecimal | undefined) {
         this.pushValueWithoutAutoAcceptance(value, this.edited);
         this.pushAutoAcceptance();
     }
@@ -76,7 +76,7 @@ export class DecimalUiAction extends UiAction {
         }
     }
 
-    private pushValueWithoutAutoAcceptance(value: Decimal | undefined, edited: boolean) {
+    private pushValueWithoutAutoAcceptance(value: SysDecimal | undefined, edited: boolean) {
         this._value = newUndefinableDecimal(value);
         this.setDefinedValue();
         this.notifyValuePush(edited);
@@ -86,7 +86,7 @@ export class DecimalUiAction extends UiAction {
 /** @public */
 export namespace DecimalUiAction {
     // eslint-disable-next-line @typescript-eslint/no-loss-of-precision
-    export const undefinedDecimal = newDecimal(-9999999999999999999.9999);
+    export const undefinedDecimal: SysDecimal = newDecimal(-9999999999999999999.9999);
     export interface Options {
         integer?: boolean;
         max?: number;
@@ -97,7 +97,7 @@ export namespace DecimalUiAction {
         maximumFractionDigits?: Integer;
     }
 
-    export type ValuePushEventHander = (this: void, value: Decimal | undefined, edited: boolean) => void;
+    export type ValuePushEventHander = (this: void, value: SysDecimal | undefined, edited: boolean) => void;
     export type OptionsPushEventHandler = (this: void, options: Options) => void;
 
     export interface PushEventHandlersInterface extends UiAction.PushEventHandlersInterface {
