@@ -5,10 +5,11 @@ import { UiAction } from './ui-action';
 
 /** @public */
 export class DateUiAction extends UiAction {
+    protected override readonly _pushMultiEvent = new MultiEvent<DateUiAction.PushEventHandlersInterface>();
+
     private _value: Date | undefined;
     private _definedValue = DateUiAction.undefinedDate;
 
-    private _datePushMultiEvent = new MultiEvent<DateUiAction.PushEventHandlersInterface>();
 
     get valueUndefined() { return this._value === undefined; }
 
@@ -26,14 +27,13 @@ export class DateUiAction extends UiAction {
         this.pushAutoAcceptance();
     }
 
-    override subscribePushEvents(handlersInterface: DateUiAction.PushEventHandlersInterface) {
-        const subscriptionId = super.subscribePushEvents(handlersInterface);
-        return this._datePushMultiEvent.subscribeWithId(handlersInterface, subscriptionId);
+    override createPushEventHandlersInterface(): UiAction.PushEventHandlersInterface {
+        const result: DateUiAction.PushEventHandlersInterface = {};
+        return result;
     }
 
-    override unsubscribePushEvents(subscriptionId: MultiEvent.SubscriptionId) {
-        this._datePushMultiEvent.unsubscribe(subscriptionId);
-        super.unsubscribePushEvents(subscriptionId);
+    override subscribePushEvents(handlersInterface: DateUiAction.PushEventHandlersInterface) {
+        return super.subscribePushEvents(handlersInterface);
     }
 
     protected override repushValue(newEdited: boolean) {
@@ -41,7 +41,7 @@ export class DateUiAction extends UiAction {
     }
 
     private notifyValuePush(edited: boolean) {
-        const handlersInterfaces = this._datePushMultiEvent.copyHandlers();
+        const handlersInterfaces = this._pushMultiEvent.copyHandlers();
         for (let i = 0; i < handlersInterfaces.length; i++) {
             const handlersInterface = handlersInterfaces[i];
             if (handlersInterface.value !== undefined) {

@@ -4,37 +4,44 @@ import { MultiEvent } from '@xilytix/sysutils';
 import { UiAction } from './ui-action';
 
 /** @public */
-export abstract class TypedArrayUiAction<T> extends UiAction {
+export abstract class ItemUiAction<T> extends UiAction {
+    protected override readonly _pushMultiEvent = new MultiEvent<ItemUiAction.PushEventHandlersInterface<T>>();
 
-    private _value: readonly T[] | undefined;
-    private _definedValue: readonly T[] = TypedArrayUiAction.undefinedArray;
+    private readonly _undefinedValue: T;
 
-    private _typedArrayPushMultiEvent = new MultiEvent<TypedArrayUiAction.PushEventHandlersInterface<T>>();
+    private _value: T | undefined;
+    private _definedValue: T;
+
+    constructor(undefinedValue: T, valueRequired: boolean) {
+        super(valueRequired);
+
+        this._undefinedValue = undefinedValue;
+        this._definedValue = undefinedValue;
+    }
 
     get valueUndefined() { return this._value === undefined; }
 
     get value() { return this._value; }
     get definedValue() { return this._definedValue; }
 
-    commitValue(value: readonly T[] | undefined, typeId: UiAction.CommitTypeId) {
+    commitValue(value: T | undefined, typeId: UiAction.CommitTypeId) {
         this._value = value;
         this.setDefinedValue();
         this.commit(typeId);
     }
 
-    pushValue(value: readonly T[] | undefined) {
+    pushValue(value: T | undefined) {
         this.pushValueWithoutAutoAcceptance(value, this.edited);
         this.pushAutoAcceptance();
     }
 
-    override subscribePushEvents(handlersInterface: TypedArrayUiAction.PushEventHandlersInterface<T>) {
-        const subscriptionId = super.subscribePushEvents(handlersInterface);
-        return this._typedArrayPushMultiEvent.subscribeWithId(handlersInterface, subscriptionId);
+    override createPushEventHandlersInterface(): UiAction.PushEventHandlersInterface {
+        const result: ItemUiAction.PushEventHandlersInterface<T> = {};
+        return result;
     }
 
-    override unsubscribePushEvents(subscriptionId: MultiEvent.SubscriptionId) {
-        this._typedArrayPushMultiEvent.unsubscribe(subscriptionId);
-        super.unsubscribePushEvents(subscriptionId);
+    override subscribePushEvents(handlersInterface: ItemUiAction.PushEventHandlersInterface<T>) {
+        return super.subscribePushEvents(handlersInterface);
     }
 
     protected override repushValue(newEdited: boolean) {
@@ -42,7 +49,7 @@ export abstract class TypedArrayUiAction<T> extends UiAction {
     }
 
     private notifyValuePush(edited: boolean) {
-        const handlersInterfaces = this._typedArrayPushMultiEvent.copyHandlers();
+        const handlersInterfaces = this._pushMultiEvent.copyHandlers();
         for (let i = 0; i < handlersInterfaces.length; i++) {
             const handlersInterface = handlersInterfaces[i];
             if (handlersInterface.value !== undefined) {
@@ -55,11 +62,11 @@ export abstract class TypedArrayUiAction<T> extends UiAction {
         if (this._value !== undefined) {
             this._definedValue = this._value;
         } else {
-            this._definedValue = TypedArrayUiAction.undefinedArray;
+            this._definedValue = this._undefinedValue;
         }
     }
 
-    private pushValueWithoutAutoAcceptance(value: readonly T[] | undefined, edited: boolean) {
+    private pushValueWithoutAutoAcceptance(value: T | undefined, edited: boolean) {
         this._value = value;
         this.setDefinedValue();
         this.notifyValuePush(edited);
@@ -67,10 +74,8 @@ export abstract class TypedArrayUiAction<T> extends UiAction {
 }
 
 /** @public */
-export namespace TypedArrayUiAction {
-    export const undefinedArray = [];
-
-    export type ValuePushEventHandler<T> = (this: void, value: readonly T[] | undefined, edited: boolean) => void;
+export namespace ItemUiAction {
+    export type ValuePushEventHandler<T> = (this: void, value: T | undefined, edited: boolean) => void;
 
     export interface PushEventHandlersInterface<T> extends UiAction.PushEventHandlersInterface {
         value?: ValuePushEventHandler<T>;

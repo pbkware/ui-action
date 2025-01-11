@@ -14,15 +14,17 @@ export class BooleanUiAction extends UiAction {
     // (undocumented)
     commitValue(value: boolean | undefined, typeId: UiAction.CommitTypeId): void;
     // (undocumented)
+    createPushEventHandlersInterface(): UiAction.PushEventHandlersInterface;
+    // (undocumented)
     get definedValue(): boolean;
+    // (undocumented)
+    protected readonly _pushMultiEvent: MultiEvent<BooleanUiAction.PushEventHandlersInterface>;
     // (undocumented)
     pushValue(value: boolean | undefined): void;
     // (undocumented)
     protected repushValue(newEdited: boolean): void;
     // (undocumented)
     subscribePushEvents(handlersInterface: BooleanUiAction.PushEventHandlersInterface): number;
-    // (undocumented)
-    unsubscribePushEvents(subscriptionId: MultiEvent.SubscriptionId): void;
     // (undocumented)
     get value(): boolean | undefined;
     // (undocumented)
@@ -47,15 +49,17 @@ export class DateUiAction extends UiAction {
     // (undocumented)
     commitValue(value: Date | undefined, typeId: UiAction.CommitTypeId): void;
     // (undocumented)
+    createPushEventHandlersInterface(): UiAction.PushEventHandlersInterface;
+    // (undocumented)
     get definedValue(): Date;
+    // (undocumented)
+    protected readonly _pushMultiEvent: MultiEvent<DateUiAction.PushEventHandlersInterface>;
     // (undocumented)
     pushValue(value: Date | undefined): void;
     // (undocumented)
     protected repushValue(newEdited: boolean): void;
     // (undocumented)
     subscribePushEvents(handlersInterface: DateUiAction.PushEventHandlersInterface): number;
-    // (undocumented)
-    unsubscribePushEvents(subscriptionId: MultiEvent.SubscriptionId): void;
     // (undocumented)
     get value(): Date | undefined;
     // (undocumented)
@@ -80,9 +84,13 @@ export class DecimalUiAction extends UiAction {
     // (undocumented)
     commitValue(value: SysDecimal | undefined, typeId: UiAction.CommitTypeId): void;
     // (undocumented)
+    createPushEventHandlersInterface(): UiAction.PushEventHandlersInterface;
+    // (undocumented)
     get definedValue(): SysDecimal;
     // (undocumented)
     get options(): DecimalUiAction.Options;
+    // (undocumented)
+    protected readonly _pushMultiEvent: MultiEvent<DecimalUiAction.PushEventHandlersInterface>;
     // (undocumented)
     pushOptions(options: DecimalUiAction.Options): void;
     // (undocumented)
@@ -91,8 +99,6 @@ export class DecimalUiAction extends UiAction {
     protected repushValue(newEdited: boolean): void;
     // (undocumented)
     subscribePushEvents(handlersInterface: DecimalUiAction.PushEventHandlersInterface): number;
-    // (undocumented)
-    unsubscribePushEvents(subscriptionId: MultiEvent.SubscriptionId): void;
     // (undocumented)
     get value(): SysDecimal | undefined;
     // (undocumented)
@@ -136,110 +142,26 @@ export namespace DecimalUiAction {
 }
 
 // @public (undocumented)
-export abstract class EnumExplicitElementsArrayUiAction extends TypedExplicitElementsArrayUiAction<Integer> {
+export class IntegerListSelectItemsUiAction extends MappedListSelectItemsUiAction<Integer> {
 }
 
 // @public (undocumented)
-export class EnumMappedExplicitElementsArrayUiAction extends TypedMappedExplicitElementsArrayUiAction<Integer> {
+export namespace IntegerListSelectItemsUiAction {
+    // (undocumented)
+    export type ItemProperties = SelectItemsUiAction.ItemProperties<Integer>;
 }
 
 // @public (undocumented)
-export abstract class EnumUiAction<T> extends UiAction {
-    constructor(undefinedValue: T, valueRequired: boolean);
-    // (undocumented)
-    commitValue(value: T | undefined, typeId: UiAction.CommitTypeId): void;
-    // (undocumented)
-    get definedValue(): T;
-    // (undocumented)
-    get filter(): readonly T[] | undefined;
-    // (undocumented)
-    abstract getElementProperties(element: T): EnumUiAction.ElementProperties<T> | undefined;
-    // (undocumented)
-    abstract getElementPropertiesArray(): EnumUiAction.ElementProperties<T>[];
-    // (undocumented)
-    protected notifyElementPush(element: T, caption: string, title: string): void;
-    // (undocumented)
-    protected notifyElementsPush(filter: T[] | undefined | null): void;
-    // (undocumented)
-    pushFilter(value: readonly T[] | undefined): void;
-    // (undocumented)
-    pushValue(value: T | undefined): void;
-    // (undocumented)
-    protected repushValue(newEdited: boolean): void;
-    // (undocumented)
-    subscribePushEvents(handlersInterface: EnumUiAction.PushEventHandlersInterface<T>): number;
-    // (undocumented)
-    unsubscribePushEvents(subscriptionId: MultiEvent.SubscriptionId): void;
-    // (undocumented)
-    get value(): T | undefined;
-    // (undocumented)
-    get valueUndefined(): boolean;
-}
-
-// @public (undocumented)
-export namespace EnumUiAction {
-    const // (undocumented)
-    integerUndefinedValue = -99999;
-    const // (undocumented)
-    stringUndefinedValue = "";
-    // (undocumented)
-    export interface ElementProperties<T> {
-        // (undocumented)
-        caption: string;
-        // (undocumented)
-        element: T;
-        // (undocumented)
-        title: string;
-    }
-    // (undocumented)
-    export type ElementPushEventHandler<T> = (this: void, element: T, caption: string, title: string) => void;
-    // (undocumented)
-    export type ElementsPushEventHandler = (this: void) => void;
-    // (undocumented)
-    export type FilterPushEventHandler<T> = (this: void, value: readonly T[] | undefined) => void;
-    // (undocumented)
-    export interface PushEventHandlersInterface<T> extends UiAction.PushEventHandlersInterface {
-        // (undocumented)
-        element?: ElementPushEventHandler<T>;
-        // (undocumented)
-        elements?: ElementsPushEventHandler;
-        // (undocumented)
-        filter?: FilterPushEventHandler<T>;
-        // (undocumented)
-        value?: ValuePushEventHandler<T>;
-    }
-    // (undocumented)
-    export type ValuePushEventHandler<T> = (this: void, value: T | undefined, edited: boolean) => void;
-}
-
-// @public (undocumented)
-export abstract class ExplicitElementsEnumUiAction<T> extends EnumUiAction<T> {
-    // (undocumented)
-    getElementProperties(element: T): EnumUiAction.ElementProperties<T> | undefined;
-    // (undocumented)
-    getElementPropertiesArray(): EnumUiAction.ElementProperties<T>[];
-    // (undocumented)
-    pushElement(element: T, caption: string, title: string): void;
-    // (undocumented)
-    pushElements(elementPropertiesArray: EnumUiAction.ElementProperties<T>[], filter?: T[] | undefined | null): void;
-}
-
-// @public (undocumented)
-export class IntegerExplicitElementsEnumUiAction extends ExplicitElementsEnumUiAction<Integer> {
+export class IntegerListSelectItemUiAction extends MappedListSelectItemUiAction<Integer> {
     constructor(valueRequired?: boolean);
+    // (undocumented)
+    createPushEventHandlersInterface(): UiAction.PushEventHandlersInterface;
 }
 
 // @public (undocumented)
-export namespace IntegerExplicitElementsEnumUiAction {
+export namespace IntegerListSelectItemUiAction {
     // (undocumented)
-    export interface ElementProperties {
-        // (undocumented)
-        caption: string;
-        // (undocumented)
-        element: Integer;
-        // (undocumented)
-        title: string;
-    }
+    export type ItemProperties = SelectItemUiAction.ItemProperties<Integer>;
 }
 
 // @public (undocumented)
@@ -253,14 +175,59 @@ export namespace IntegerUiAction {
     defaultIntegerOptions: NumberUiAction.Options;
 }
 
+// Warning: (ae-forgotten-export) The symbol "ItemUiAction" needs to be exported by the entry point public-api.d.ts
+//
+// @public (undocumented)
+export abstract class ItemsUiAction<T> extends ItemUiAction<readonly T[]> {
+    constructor(valueRequired?: boolean);
+}
+
+// @public (undocumented)
+export namespace ItemsUiAction {
+    // (undocumented)
+    export type PushEventHandlersInterface<T> = ItemUiAction.PushEventHandlersInterface<readonly T[]>;
+}
+
+// @public (undocumented)
+export class MappedListSelectItemsUiAction<T> extends SelectItemsUiAction<T> {
+    // (undocumented)
+    getItemProperties(element: T): SelectItemsUiAction.ItemProperties<T> | undefined;
+    // (undocumented)
+    getItemPropertiesArray(): SelectItemsUiAction.ItemProperties<T>[];
+    // (undocumented)
+    get list(): Map<T, SelectItemsUiAction.ItemProperties<T>>;
+    // (undocumented)
+    pushItem(item: T, caption: string, title: string): void;
+    // (undocumented)
+    pushList(itemPropertiesArray: SelectItemsUiAction.ItemProperties<T>[], filter?: T[] | undefined | null): void;
+}
+
+// @public (undocumented)
+export class MappedListSelectItemUiAction<T> extends SelectItemUiAction<T> {
+    // (undocumented)
+    getItemProperties(item: T): SelectItemUiAction.ItemProperties<T> | undefined;
+    // (undocumented)
+    getItemPropertiesArray(): SelectItemUiAction.ItemProperties<T>[];
+    // (undocumented)
+    get list(): Map<T, SelectItemUiAction.ItemProperties<T>>;
+    // (undocumented)
+    pushItem(item: T, caption: string, title: string): void;
+    // (undocumented)
+    pushList(itemPropertiesArray: SelectItemUiAction.ItemProperties<T>[], filter?: T[] | undefined | null): void;
+}
+
 // @public (undocumented)
 export class NumberUiAction extends UiAction {
     // (undocumented)
     commitValue(value: number | undefined, typeId: UiAction.CommitTypeId): void;
     // (undocumented)
+    createPushEventHandlersInterface(): UiAction.PushEventHandlersInterface;
+    // (undocumented)
     get definedValue(): number;
     // (undocumented)
     get options(): NumberUiAction.Options;
+    // (undocumented)
+    protected readonly _pushMultiEvent: MultiEvent<NumberUiAction.PushEventHandlersInterface>;
     // (undocumented)
     pushOptions(options: NumberUiAction.Options): void;
     // (undocumented)
@@ -269,8 +236,6 @@ export class NumberUiAction extends UiAction {
     protected repushValue(newEdited: boolean): void;
     // (undocumented)
     subscribePushEvents(handlersInterface: NumberUiAction.PushEventHandlersInterface): number;
-    // (undocumented)
-    unsubscribePushEvents(subscriptionId: MultiEvent.SubscriptionId): void;
     // (undocumented)
     get value(): number | undefined;
     // (undocumented)
@@ -314,25 +279,128 @@ export namespace NumberUiAction {
 }
 
 // @public (undocumented)
-export class StringArrayUiAction extends TypedArrayUiAction<string> {
+export abstract class SelectIntegersUiAction extends SelectItemsUiAction<Integer> {
 }
 
 // @public (undocumented)
-export class StringExplicitElementsEnumUiAction extends ExplicitElementsEnumUiAction<string> {
-    constructor(valueRequired?: boolean);
-}
-
-// @public (undocumented)
-export namespace StringExplicitElementsEnumUiAction {
+export abstract class SelectItemsUiAction<T> extends ItemsUiAction<T> {
     // (undocumented)
-    export interface ElementProperties {
+    createPushEventHandlersInterface(): UiAction.PushEventHandlersInterface;
+    // (undocumented)
+    get filter(): readonly T[] | undefined;
+    // (undocumented)
+    abstract getItemProperties(item: T): SelectItemsUiAction.ItemProperties<T> | undefined;
+    // (undocumented)
+    abstract getItemPropertiesArray(): SelectItemsUiAction.ItemProperties<T>[];
+    // (undocumented)
+    protected notifyItemPush(item: T, caption: string, title: string): void;
+    // (undocumented)
+    protected notifyListPush(filter: T[] | undefined | null): void;
+    // (undocumented)
+    pushFilter(value: readonly T[] | undefined): void;
+    // (undocumented)
+    protected readonly _pushMultiEvent: MultiEvent<SelectItemsUiAction.PushEventHandlersInterface<T>>;
+    // (undocumented)
+    subscribePushEvents(handlersInterface: SelectItemsUiAction.PushEventHandlersInterface<T>): number;
+}
+
+// @public (undocumented)
+export namespace SelectItemsUiAction {
+    // (undocumented)
+    export type FilterPushEventHandler<T> = (this: void, value: readonly T[] | undefined) => void;
+    // (undocumented)
+    export interface ItemProperties<T> {
         // (undocumented)
         caption: string;
         // (undocumented)
-        element: string;
+        item: T;
         // (undocumented)
         title: string;
     }
+    // (undocumented)
+    export type ItemPushEventHandler<T> = (this: void, item: T, caption: string, title: string) => void;
+    // (undocumented)
+    export type ListPushEventHandler = (this: void) => void;
+    // (undocumented)
+    export interface PushEventHandlersInterface<T> extends ItemsUiAction.PushEventHandlersInterface<T> {
+        // (undocumented)
+        filter?: FilterPushEventHandler<T>;
+        // (undocumented)
+        item?: ItemPushEventHandler<T>;
+        // (undocumented)
+        list?: ListPushEventHandler;
+    }
+}
+
+// @public (undocumented)
+export abstract class SelectItemUiAction<T> extends ItemUiAction<T> {
+    // (undocumented)
+    createPushEventHandlersInterface(): UiAction.PushEventHandlersInterface;
+    // (undocumented)
+    get filter(): readonly T[] | undefined;
+    // (undocumented)
+    abstract getItemProperties(item: T): SelectItemUiAction.ItemProperties<T> | undefined;
+    // (undocumented)
+    abstract getItemPropertiesArray(): SelectItemUiAction.ItemProperties<T>[];
+    // (undocumented)
+    protected notifyItemPush(item: T, caption: string, title: string): void;
+    // (undocumented)
+    protected notifyListPush(filter: T[] | undefined | null): void;
+    // (undocumented)
+    pushFilter(value: readonly T[] | undefined): void;
+    // (undocumented)
+    protected readonly _pushMultiEvent: MultiEvent<SelectItemUiAction.PushEventHandlersInterface<T>>;
+    // (undocumented)
+    subscribePushEvents(handlersInterface: SelectItemUiAction.PushEventHandlersInterface<T>): number;
+}
+
+// @public (undocumented)
+export namespace SelectItemUiAction {
+    const // (undocumented)
+    integerUndefinedValue = -99999;
+    const // (undocumented)
+    stringUndefinedValue = "";
+    // (undocumented)
+    export type FilterPushEventHandler<T> = (this: void, value: readonly T[] | undefined) => void;
+    // (undocumented)
+    export interface ItemProperties<T> {
+        // (undocumented)
+        caption: string;
+        // (undocumented)
+        item: T;
+        // (undocumented)
+        title: string;
+    }
+    // (undocumented)
+    export type ItemPushEventHandler<T> = (this: void, item: T, caption: string, title: string) => void;
+    // (undocumented)
+    export type ListPushEventHandler = (this: void) => void;
+    // (undocumented)
+    export interface PushEventHandlersInterface<T> extends ItemUiAction.PushEventHandlersInterface<T> {
+        // (undocumented)
+        filter?: FilterPushEventHandler<T>;
+        // (undocumented)
+        item?: ItemPushEventHandler<T>;
+        // (undocumented)
+        list?: ListPushEventHandler;
+    }
+}
+
+// @public (undocumented)
+export class StringArrayUiAction extends ItemsUiAction<string> {
+}
+
+// @public (undocumented)
+export class StringListSelectItemUiAction extends MappedListSelectItemUiAction<string> {
+    constructor(valueRequired?: boolean);
+    // (undocumented)
+    createPushEventHandlersInterface(): UiAction.PushEventHandlersInterface;
+}
+
+// @public (undocumented)
+export namespace StringListSelectItemUiAction {
+    // (undocumented)
+    export type ItemProperties = SelectItemUiAction.ItemProperties<string>;
 }
 
 // @public (undocumented)
@@ -340,15 +408,17 @@ export class StringUiAction extends UiAction {
     // (undocumented)
     commitValue(value: string | undefined, typeId: UiAction.CommitTypeId): void;
     // (undocumented)
+    createPushEventHandlersInterface(): UiAction.PushEventHandlersInterface;
+    // (undocumented)
     get definedValue(): string;
+    // (undocumented)
+    protected readonly _pushMultiEvent: MultiEvent<StringUiAction.PushEventHandlersInterface>;
     // (undocumented)
     pushValue(value: string | undefined): void;
     // (undocumented)
     protected repushValue(newEdited: boolean): void;
     // (undocumented)
     subscribePushEvents(handlersInterface: StringUiAction.PushEventHandlersInterface): number;
-    // (undocumented)
-    unsubscribePushEvents(subscriptionId: MultiEvent.SubscriptionId): void;
     // (undocumented)
     get value(): string | undefined;
     // (undocumented)
@@ -366,101 +436,6 @@ export namespace StringUiAction {
     }
     // (undocumented)
     export type ValuePushEventHander = (this: void, value: string | undefined, edited: boolean) => void;
-}
-
-// @public (undocumented)
-export abstract class TypedArrayUiAction<T> extends UiAction {
-    // (undocumented)
-    commitValue(value: readonly T[] | undefined, typeId: UiAction.CommitTypeId): void;
-    // (undocumented)
-    get definedValue(): readonly T[];
-    // (undocumented)
-    pushValue(value: readonly T[] | undefined): void;
-    // (undocumented)
-    protected repushValue(newEdited: boolean): void;
-    // (undocumented)
-    subscribePushEvents(handlersInterface: TypedArrayUiAction.PushEventHandlersInterface<T>): number;
-    // (undocumented)
-    unsubscribePushEvents(subscriptionId: MultiEvent.SubscriptionId): void;
-    // (undocumented)
-    get value(): readonly T[] | undefined;
-    // (undocumented)
-    get valueUndefined(): boolean;
-}
-
-// @public (undocumented)
-export namespace TypedArrayUiAction {
-    const // (undocumented)
-    undefinedArray: never[];
-    // (undocumented)
-    export interface PushEventHandlersInterface<T> extends UiAction.PushEventHandlersInterface {
-        // (undocumented)
-        value?: ValuePushEventHandler<T>;
-    }
-    // (undocumented)
-    export type ValuePushEventHandler<T> = (this: void, value: readonly T[] | undefined, edited: boolean) => void;
-}
-
-// @public (undocumented)
-export abstract class TypedExplicitElementsArrayUiAction<T> extends TypedArrayUiAction<T> {
-    // (undocumented)
-    get filter(): readonly T[] | undefined;
-    // (undocumented)
-    abstract getElementProperties(element: T): TypedExplicitElementsArrayUiAction.ElementProperties<T> | undefined;
-    // (undocumented)
-    abstract getElementPropertiesArray(): TypedExplicitElementsArrayUiAction.ElementProperties<T>[];
-    // (undocumented)
-    protected notifyElementPush(element: T, caption: string, title: string): void;
-    // (undocumented)
-    protected notifyElementsPush(filter: T[] | undefined | null): void;
-    // (undocumented)
-    pushFilter(value: readonly T[] | undefined): void;
-    // (undocumented)
-    subscribePushEvents(handlersInterface: TypedExplicitElementsArrayUiAction.PushEventHandlersInterface<T>): number;
-    // (undocumented)
-    unsubscribePushEvents(subscriptionId: MultiEvent.SubscriptionId): void;
-}
-
-// @public (undocumented)
-export namespace TypedExplicitElementsArrayUiAction {
-    // (undocumented)
-    export interface ElementProperties<T> {
-        // (undocumented)
-        caption: string;
-        // (undocumented)
-        element: T;
-        // (undocumented)
-        title: string;
-    }
-    // (undocumented)
-    export type ElementPushEventHandler<T> = (this: void, element: T, caption: string, title: string) => void;
-    // (undocumented)
-    export type ElementsPushEventHandler = (this: void) => void;
-    // (undocumented)
-    export type FilterPushEventHandler<T> = (this: void, value: readonly T[] | undefined) => void;
-    // (undocumented)
-    export interface PushEventHandlersInterface<T> extends TypedArrayUiAction.PushEventHandlersInterface<T> {
-        // (undocumented)
-        element?: ElementPushEventHandler<T>;
-        // (undocumented)
-        elements?: ElementsPushEventHandler;
-        // (undocumented)
-        filter?: FilterPushEventHandler<T>;
-    }
-}
-
-// @public (undocumented)
-export class TypedMappedExplicitElementsArrayUiAction<T> extends TypedExplicitElementsArrayUiAction<T> {
-    // (undocumented)
-    get elementPropertiesMap(): Map<T, TypedExplicitElementsArrayUiAction.ElementProperties<T>>;
-    // (undocumented)
-    getElementProperties(element: T): TypedExplicitElementsArrayUiAction.ElementProperties<T> | undefined;
-    // (undocumented)
-    getElementPropertiesArray(): TypedExplicitElementsArrayUiAction.ElementProperties<T>[];
-    // (undocumented)
-    pushElement(element: T, caption: string, title: string): void;
-    // (undocumented)
-    pushElements(elementPropertiesArray: TypedExplicitElementsArrayUiAction.ElementProperties<T>[], filter?: T[] | undefined | null): void;
 }
 
 // @public (undocumented)
@@ -487,6 +462,8 @@ export abstract class UiAction {
     // (undocumented)
     get commitOnAnyValidInput(): boolean;
     set commitOnAnyValidInput(value: boolean);
+    // (undocumented)
+    abstract createPushEventHandlersInterface(): UiAction.PushEventHandlersInterface;
     // (undocumented)
     get edited(): boolean;
     // (undocumented)
@@ -527,6 +504,8 @@ export abstract class UiAction {
     pushError(errorTitleText?: string): void;
     // (undocumented)
     pushInvalid(invalidTitleText?: string): void;
+    // (undocumented)
+    protected readonly _pushMultiEvent: MultiEvent<UiAction.PushEventHandlersInterface>;
     // (undocumented)
     pushPlaceholder(value: string): void;
     // (undocumented)

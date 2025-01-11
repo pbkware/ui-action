@@ -5,12 +5,12 @@ import { UiAction } from './ui-action';
 
 /** @public */
 export class DecimalUiAction extends UiAction {
+    protected override readonly _pushMultiEvent = new MultiEvent<DecimalUiAction.PushEventHandlersInterface>();
 
     private _value: SysDecimal | undefined;
     private _definedValue: SysDecimal = DecimalUiAction.undefinedDecimal;
     private _options = DecimalUiAction.defaultOptions;
 
-    private _decimalPushMultiEvent = new MultiEvent<DecimalUiAction.PushEventHandlersInterface>();
 
     get valueUndefined() { return this._value === undefined; }
 
@@ -34,14 +34,13 @@ export class DecimalUiAction extends UiAction {
         this.notifyOptionsPush();
     }
 
-    override subscribePushEvents(handlersInterface: DecimalUiAction.PushEventHandlersInterface) {
-        const subscriptionId = super.subscribePushEvents(handlersInterface);
-        return this._decimalPushMultiEvent.subscribeWithId(handlersInterface, subscriptionId);
+    override createPushEventHandlersInterface(): UiAction.PushEventHandlersInterface {
+        const result: DecimalUiAction.PushEventHandlersInterface = {};
+        return result;
     }
 
-    override unsubscribePushEvents(subscriptionId: MultiEvent.SubscriptionId) {
-        this._decimalPushMultiEvent.unsubscribe(subscriptionId);
-        super.unsubscribePushEvents(subscriptionId);
+    override subscribePushEvents(handlersInterface: DecimalUiAction.PushEventHandlersInterface) {
+        return super.subscribePushEvents(handlersInterface);
     }
 
     protected override repushValue(newEdited: boolean) {
@@ -49,7 +48,7 @@ export class DecimalUiAction extends UiAction {
     }
 
     private notifyValuePush(edited: boolean) {
-        const handlersInterfaces = this._decimalPushMultiEvent.copyHandlers();
+        const handlersInterfaces = this._pushMultiEvent.copyHandlers();
         for (let i = 0; i < handlersInterfaces.length; i++) {
             const handlersInterface = handlersInterfaces[i];
             if (handlersInterface.value !== undefined) {
@@ -59,7 +58,7 @@ export class DecimalUiAction extends UiAction {
     }
 
     private notifyOptionsPush() {
-        const handlersInterfaces = this._decimalPushMultiEvent.copyHandlers();
+        const handlersInterfaces = this._pushMultiEvent.copyHandlers();
         for (let i = 0; i < handlersInterfaces.length; i++) {
             const handlersInterface = handlersInterfaces[i];
             if (handlersInterface.options !== undefined) {

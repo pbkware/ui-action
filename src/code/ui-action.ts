@@ -4,7 +4,8 @@ import { AssertInternalError, ModifierKey, MultiEvent, UnreachableCaseError } fr
 
 /** @public */
 export abstract class UiAction {
-    private _pushMultiEvent = new MultiEvent<UiAction.PushEventHandlersInterface>();
+    protected readonly _pushMultiEvent = new MultiEvent<UiAction.PushEventHandlersInterface>();
+
     private _commitEvent: UiAction.CommitEventHandler | undefined;
     private _inputEvent: UiAction.InputEventHandler | undefined;
     private _signalEvent: UiAction.SignalEventHandler | undefined;
@@ -421,6 +422,7 @@ export abstract class UiAction {
         }
     }
 
+    abstract createPushEventHandlersInterface(): UiAction.PushEventHandlersInterface;
     protected abstract repushValue(newEdited: boolean): void;
 }
 

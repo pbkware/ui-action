@@ -5,12 +5,12 @@ import { UiAction } from './ui-action';
 
 /** @public */
 export class NumberUiAction extends UiAction {
+    protected override readonly _pushMultiEvent = new MultiEvent<NumberUiAction.PushEventHandlersInterface>();
 
     private _value: number | undefined;
     private _definedValue: number = NumberUiAction.undefinedNumber;
     private _options = NumberUiAction.defaultOptions;
 
-    private _numberPushMultiEvent = new MultiEvent<NumberUiAction.PushEventHandlersInterface>();
 
     get valueUndefined() { return this._value === undefined; }
 
@@ -34,14 +34,13 @@ export class NumberUiAction extends UiAction {
         this.notifyOptionsPush();
     }
 
-    override subscribePushEvents(handlersInterface: NumberUiAction.PushEventHandlersInterface) {
-        const subscriptionId = super.subscribePushEvents(handlersInterface);
-        return this._numberPushMultiEvent.subscribeWithId(handlersInterface, subscriptionId);
+    override createPushEventHandlersInterface(): UiAction.PushEventHandlersInterface {
+        const result: NumberUiAction.PushEventHandlersInterface = {};
+        return result;
     }
 
-    override unsubscribePushEvents(subscriptionId: MultiEvent.SubscriptionId) {
-        this._numberPushMultiEvent.unsubscribe(subscriptionId);
-        super.unsubscribePushEvents(subscriptionId);
+    override subscribePushEvents(handlersInterface: NumberUiAction.PushEventHandlersInterface) {
+        return super.subscribePushEvents(handlersInterface);
     }
 
     protected override repushValue(newEdited: boolean) {
@@ -49,7 +48,7 @@ export class NumberUiAction extends UiAction {
     }
 
     private notifyValuePush(edited: boolean) {
-        const handlersInterfaces = this._numberPushMultiEvent.copyHandlers();
+        const handlersInterfaces = this._pushMultiEvent.copyHandlers();
         for (let i = 0; i < handlersInterfaces.length; i++) {
             const handlersInterface = handlersInterfaces[i];
             if (handlersInterface.value !== undefined) {
@@ -59,7 +58,7 @@ export class NumberUiAction extends UiAction {
     }
 
     private notifyOptionsPush() {
-        const handlersInterfaces = this._numberPushMultiEvent.copyHandlers();
+        const handlersInterfaces = this._pushMultiEvent.copyHandlers();
         for (let i = 0; i < handlersInterfaces.length; i++) {
             const handlersInterface = handlersInterfaces[i];
             if (handlersInterface.options !== undefined) {

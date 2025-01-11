@@ -5,11 +5,11 @@ import { UiAction } from './ui-action';
 
 /** @public */
 export class StringUiAction extends UiAction {
+    protected override readonly _pushMultiEvent = new MultiEvent<StringUiAction.PushEventHandlersInterface>();
 
     private _value: string | undefined;
     private _definedValue: string = StringUiAction.undefinedString;
 
-    private _stringPushMultiEvent = new MultiEvent<StringUiAction.PushEventHandlersInterface>();
 
     get valueUndefined() { return this._value === undefined; }
 
@@ -27,14 +27,13 @@ export class StringUiAction extends UiAction {
         this.pushAutoAcceptance();
     }
 
-    override subscribePushEvents(handlersInterface: StringUiAction.PushEventHandlersInterface) {
-        const subscriptionId = super.subscribePushEvents(handlersInterface);
-        return this._stringPushMultiEvent.subscribeWithId(handlersInterface, subscriptionId);
+    override createPushEventHandlersInterface(): UiAction.PushEventHandlersInterface {
+        const result: StringUiAction.PushEventHandlersInterface = {};
+        return result;
     }
 
-    override unsubscribePushEvents(subscriptionId: MultiEvent.SubscriptionId) {
-        this._stringPushMultiEvent.unsubscribe(subscriptionId);
-        super.unsubscribePushEvents(subscriptionId);
+    override subscribePushEvents(handlersInterface: StringUiAction.PushEventHandlersInterface) {
+        return super.subscribePushEvents(handlersInterface);
     }
 
     protected override repushValue(newEdited: boolean) {
@@ -42,7 +41,7 @@ export class StringUiAction extends UiAction {
     }
 
     private notifyValuePush(edited: boolean) {
-        const handlersInterfaces = this._stringPushMultiEvent.copyHandlers();
+        const handlersInterfaces = this._pushMultiEvent.copyHandlers();
         for (let i = 0; i < handlersInterfaces.length; i++) {
             const handlersInterface = handlersInterfaces[i];
             if (handlersInterface.value !== undefined) {
