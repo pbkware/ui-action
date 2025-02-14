@@ -1,30 +1,35 @@
 // (c) 2024 Xilytix Pty Ltd
 
-import { Integer, MultiEvent, newDecimal, newUndefinableDecimal, SysDecimal } from '@xilytix/sysutils';
+import { DecimalFactory, Integer, MultiEvent } from '@xilytix/sysutils';
+import { Decimal } from 'decimal.js-light';
 import { UiAction } from './ui-action';
 
 /** @public */
 export class DecimalUiAction extends UiAction {
     protected override readonly _pushMultiEvent = new MultiEvent<DecimalUiAction.PushEventHandlersInterface>();
 
-    private _value: SysDecimal | undefined;
-    private _definedValue: SysDecimal = DecimalUiAction.undefinedDecimal;
+    private _value: Decimal | undefined;
+    private _definedValue: Decimal;
     private _options = DecimalUiAction.defaultOptions;
 
+    constructor(private readonly _decimalFactory: DecimalFactory, valueRequired = true) {
+        super(valueRequired);
+        this._definedValue = this._decimalFactory.newDecimal(DecimalUiAction.undefinedDecimalAsNumber)
+    }
 
     get valueUndefined() { return this._value === undefined; }
 
-    get value(): SysDecimal | undefined { return this._value; }
-    get definedValue(): SysDecimal { return this._definedValue; }
+    get value(): Decimal | undefined { return this._value; }
+    get definedValue(): Decimal { return this._definedValue; }
     get options() { return this._options; }
 
-    commitValue(value: SysDecimal | undefined, typeId: UiAction.CommitTypeId) {
+    commitValue(value: Decimal | undefined, typeId: UiAction.CommitTypeId) {
         this._value = value; // owns value
         this.setDefinedValue();
         this.commit(typeId);
     }
 
-    pushValue(value: SysDecimal | undefined) {
+    pushValue(value: Decimal | undefined) {
         this.pushValueWithoutAutoAcceptance(value, this.edited);
         this.pushAutoAcceptance();
     }
@@ -71,12 +76,12 @@ export class DecimalUiAction extends UiAction {
         if (this._value !== undefined) {
             this._definedValue = this._value;
         } else {
-            this._definedValue = DecimalUiAction.undefinedDecimal;
+            this._definedValue = this._decimalFactory.newDecimal(DecimalUiAction.undefinedDecimalAsNumber);
         }
     }
 
-    private pushValueWithoutAutoAcceptance(value: SysDecimal | undefined, edited: boolean) {
-        this._value = newUndefinableDecimal(value);
+    private pushValueWithoutAutoAcceptance(value: Decimal | undefined, edited: boolean) {
+        this._value = this._decimalFactory.newUndefinableDecimal(value);
         this.setDefinedValue();
         this.notifyValuePush(edited);
     }
@@ -84,8 +89,7 @@ export class DecimalUiAction extends UiAction {
 
 /** @public */
 export namespace DecimalUiAction {
-    // eslint-disable-next-line @typescript-eslint/no-loss-of-precision
-    export const undefinedDecimal: SysDecimal = newDecimal(-9999999999999999999.9999);
+    export const undefinedDecimalAsNumber  = -999999999999.9999;
     export interface Options {
         integer?: boolean;
         max?: number;
@@ -96,7 +100,7 @@ export namespace DecimalUiAction {
         maximumFractionDigits?: Integer;
     }
 
-    export type ValuePushEventHander = (this: void, value: SysDecimal | undefined, edited: boolean) => void;
+    export type ValuePushEventHander = (this: void, value: Decimal | undefined, edited: boolean) => void;
     export type OptionsPushEventHandler = (this: void, options: Options) => void;
 
     export interface PushEventHandlersInterface extends UiAction.PushEventHandlersInterface {
