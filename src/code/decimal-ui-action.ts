@@ -14,7 +14,7 @@ export class DecimalUiAction extends UiAction {
 
     constructor(private readonly _decimalFactory: DecimalFactory, valueRequired = true) {
         super(valueRequired);
-        this._definedValue = this._decimalFactory.newDecimal(DecimalUiAction.undefinedDecimalAsNumber)
+        this._definedValue = this._decimalFactory.nullDecimal;
     }
 
     get valueUndefined() { return this._value === undefined; }
@@ -76,7 +76,7 @@ export class DecimalUiAction extends UiAction {
         if (this._value !== undefined) {
             this._definedValue = this._value;
         } else {
-            this._definedValue = this._decimalFactory.newDecimal(DecimalUiAction.undefinedDecimalAsNumber);
+            this._definedValue = this._decimalFactory.nullDecimal;
         }
     }
 
@@ -89,7 +89,6 @@ export class DecimalUiAction extends UiAction {
 
 /** @public */
 export namespace DecimalUiAction {
-    export const undefinedDecimalAsNumber  = -999999999999.9999;
     export interface Options {
         integer?: boolean;
         max?: number;
