@@ -1,6 +1,6 @@
 // (c) 2024 Xilytix Pty Ltd
 
-import { Integer } from '@xilytix/sysutils';
+import { Integer } from '@pbkware/js-utils';
 import { SelectItemsUiAction } from './select-items-ui-action';
 
 // was enum-explicit-elements-array-ui-action.ts

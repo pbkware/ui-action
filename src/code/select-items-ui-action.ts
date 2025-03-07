@@ -1,6 +1,6 @@
 // (c) 2024 Xilytix Pty Ltd
 
-import { MultiEvent } from '@xilytix/sysutils';
+import { MultiEvent } from '@pbkware/js-utils';
 import { ItemsUiAction } from './items-ui-action';
 import { UiAction } from './ui-action';
 

@@ -1,6 +1,6 @@
 // (c) 2024 Xilytix Pty Ltd
 
-import { Integer } from '@xilytix/sysutils';
+import { Integer } from '@pbkware/js-utils';
 import { MappedListSelectItemUiAction } from './mapped-list-select-item-ui-action';
 import { SelectItemUiAction } from './select-item-ui-action';
 import { UiAction } from './ui-action';

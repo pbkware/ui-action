@@ -43,7 +43,7 @@
     "publish": "npm publish --access=public"
   },
   "dependencies": {
-    "@xilytix/sysutils": "^0.0.3",
+    "@pbkware/js-utils": "^0.8.0",
     "decimal.js-light": "^2.5.1"
   },
   "devDependencies": {

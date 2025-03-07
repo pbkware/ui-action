@@ -1,6 +1,6 @@
 // (c) 2024 Xilytix Pty Ltd
 
-import { DecimalFactory, Integer, MultiEvent } from '@xilytix/sysutils';
+import { DecimalFactory, Integer, MultiEvent } from '@pbkware/js-utils';
 import { Decimal } from 'decimal.js-light';
 import { UiAction } from './ui-action';
 

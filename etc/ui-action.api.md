@@ -5,10 +5,10 @@
 ```ts
 
 import { Decimal } from 'decimal.js-light';
-import { DecimalFactory } from '@xilytix/sysutils';
-import { Integer } from '@xilytix/sysutils';
-import { ModifierKey } from '@xilytix/sysutils';
-import { MultiEvent } from '@xilytix/sysutils';
+import { DecimalFactory } from '@pbkware/js-utils';
+import { Integer } from '@pbkware/js-utils';
+import { ModifierKey } from '@pbkware/js-utils';
+import { MultiEvent } from '@pbkware/js-utils';
 
 // @public (undocumented)
 export class BooleanUiAction extends UiAction {
@@ -109,8 +109,6 @@ export class DecimalUiAction extends UiAction {
 
 // @public (undocumented)
 export namespace DecimalUiAction {
-    const // (undocumented)
-    undefinedDecimalAsNumber = -999999999999.9999;
     // (undocumented)
     export interface Options {
         // (undocumented)
