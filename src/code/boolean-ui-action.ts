@@ -1,4 +1,3 @@
-// (c) 2024 Xilytix Pty Ltd
 
 import { MultiEvent } from '@pbkware/js-utils';
 import { UiAction } from './ui-action';

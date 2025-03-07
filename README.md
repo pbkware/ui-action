@@ -1,1 +1,1 @@
-This package contains Xilytix UiAction classes
+Classes to process UI actions

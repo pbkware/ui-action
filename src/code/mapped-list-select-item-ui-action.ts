@@ -1,4 +1,3 @@
-// (c) 2024 Xilytix Pty Ltd
 
 import { SelectItemUiAction } from './select-item-ui-action';
 

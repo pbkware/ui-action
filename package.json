@@ -1,25 +1,24 @@
 {
-  "name": "@xilytix/ui-action",
+  "name": "@pbkware/ui-action",
   "version": "0.9.0",
-  "description": "Xilytix UiAction classes",
+  "description": "Classes to process UI actions",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/xilytix/ui-action.git"
+    "url": "git+ssh://git@github.com/pbkware/ui-action.git"
   },
   "keywords": [
-    "Xilytix",
     "ui",
     "action",
     "controls"
   ],
-  "homepage": "https://xilytix.com",
+  "homepage": "https://pbkware.klink.au/ui-action",
   "author": {
-    "name": "Xilytix",
-    "url": "https://xilytix.com/"
+    "name": "Paul Klink",
+    "url": "https://paul.klink.au/"
   },
-  "license": "SEE LICENSE IN license.txt",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/xilytix/ui-action/issues"
+    "url": "https://github.com/pbkware/ui-action/issues"
   },
   "module": "dist/code/public-api.js",
   "typings": "dist/types/public-api.d.ts",
@@ -29,7 +28,7 @@
     "license.txt"
   ],
   "scripts": {
-    "link-xilytix": "npm link @xilytix/sysutils",
+    "link-pbkware": "npm link @pbkware/js-utils",
     "lint": "eslint -c .eslintrc.json --ext .ts src/",
     "build": "tsc --build ./tsconfig.json",
     "force-build": "tsc --build --force ./tsconfig.json",

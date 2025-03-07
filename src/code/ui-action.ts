@@ -1,4 +1,3 @@
-// (c) 2024 Xilytix Pty Ltd
 
 import { AssertInternalError, ModifierKey, MultiEvent, UnreachableCaseError } from '@pbkware/js-utils';
 

@@ -1,4 +1,3 @@
-// (c) 2024 Xilytix Pty Ltd
 
 export * from './boolean-ui-action';
 export * from './date-ui-action';

@@ -1,4 +1,3 @@
-// (c) 2024 Xilytix Pty Ltd
 
 import { MappedListSelectItemUiAction } from './mapped-list-select-item-ui-action';
 import { SelectItemUiAction } from './select-item-ui-action';

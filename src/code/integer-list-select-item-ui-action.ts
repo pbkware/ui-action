@@ -1,4 +1,3 @@
-// (c) 2024 Xilytix Pty Ltd
 
 import { Integer } from '@pbkware/js-utils';
 import { MappedListSelectItemUiAction } from './mapped-list-select-item-ui-action';

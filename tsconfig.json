@@ -1,5 +1,3 @@
-// (c) 2024 Xilytix Pty Ltd
-
 {
   "compileOnSave": false,
   "compilerOptions": {
@@ -31,7 +29,7 @@
     "moduleResolution": "node",
     "lib": [
       "dom",
-      "ES2022"
+      "ES2023"
     ],
     "rootDir": "src",
     "paths": {
