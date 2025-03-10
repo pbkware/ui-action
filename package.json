@@ -24,8 +24,7 @@
   "typings": "dist/types/public-api.d.ts",
   "files": [
     "dist/**/*",
-    "src/**/*.ts",
-    "license.txt"
+    "src/**/*.ts"
   ],
   "scripts": {
     "link-pbkware": "npm link @pbkware/js-utils",
