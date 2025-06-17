@@ -5,6 +5,7 @@ export * from './decimal-ui-action';
 export * from './integer-list-select-item-ui-action';
 export * from './integer-list-select-items-ui-action';
 export * from './integer-ui-action';
+export * from './item-ui-action';
 export * from './items-ui-action';
 export * from './mapped-list-select-item-ui-action';
 export * from './mapped-list-select-items-ui-action';

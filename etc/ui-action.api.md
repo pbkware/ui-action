@@ -175,8 +175,6 @@ export namespace IntegerUiAction {
     defaultIntegerOptions: NumberUiAction.Options;
 }
 
-// Warning: (ae-forgotten-export) The symbol "ItemUiAction" needs to be exported by the entry point public-api.d.ts
-//
 // @public (undocumented)
 export abstract class ItemsUiAction<T> extends ItemUiAction<readonly T[]> {
     constructor(valueRequired?: boolean);
@@ -186,6 +184,40 @@ export abstract class ItemsUiAction<T> extends ItemUiAction<readonly T[]> {
 export namespace ItemsUiAction {
     // (undocumented)
     export type PushEventHandlersInterface<T> = ItemUiAction.PushEventHandlersInterface<readonly T[]>;
+}
+
+// @public (undocumented)
+export abstract class ItemUiAction<T> extends UiAction {
+    constructor(undefinedValue: T, valueRequired: boolean);
+    // (undocumented)
+    commitValue(value: T | undefined, typeId: UiAction.CommitTypeId): void;
+    // (undocumented)
+    createPushEventHandlersInterface(): UiAction.PushEventHandlersInterface;
+    // (undocumented)
+    get definedValue(): T;
+    // (undocumented)
+    protected readonly _pushMultiEvent: MultiEvent<ItemUiAction.PushEventHandlersInterface<T>>;
+    // (undocumented)
+    pushValue(value: T | undefined): void;
+    // (undocumented)
+    protected repushValue(newEdited: boolean): void;
+    // (undocumented)
+    subscribePushEvents(handlersInterface: ItemUiAction.PushEventHandlersInterface<T>): number;
+    // (undocumented)
+    get value(): T | undefined;
+    // (undocumented)
+    get valueUndefined(): boolean;
+}
+
+// @public (undocumented)
+export namespace ItemUiAction {
+    // (undocumented)
+    export interface PushEventHandlersInterface<T> extends UiAction.PushEventHandlersInterface {
+        // (undocumented)
+        value?: ValuePushEventHandler<T>;
+    }
+    // (undocumented)
+    export type ValuePushEventHandler<T> = (this: void, value: T | undefined, edited: boolean) => void;
 }
 
 // @public (undocumented)

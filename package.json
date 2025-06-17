@@ -38,20 +38,24 @@
     "force-api": "npm run force-build && npm run rollup",
     "clean": "npx del-cli ./dist/* && npx del-cli ./lib/*",
     "dist": "npm run clean && npm run force-api",
-    "publish": "npm publish --access=public"
+    "publish": "npm publish --access=public",
+    "docs:build": "typedoc --options ./typedoc.json",
+    "docs:serve": "ws -d docs"
   },
   "dependencies": {
-    "@pbkware/js-utils": "^0.8.1",
+    "@pbkware/js-utils": "^0.8.2",
     "decimal.js-light": "^2.5.1"
   },
   "devDependencies": {
-    "@microsoft/api-extractor": "^7.51.1",
+    "@microsoft/api-extractor": "^7.52.8",
     "@typescript-eslint/eslint-plugin": "^7.3.1",
     "@typescript-eslint/parser": "^7.3.1",
-    "del-cli": "^5.1.0",
+    "del-cli": "^6.0.0",
     "eslint": "^8.57.0",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.29.1",
-    "typescript": "^5.8.2"
+    "local-web-server": "^5.4.0",
+    "typedoc": "^0.28.5",
+    "typescript": "^5.8.3"
   }
 }

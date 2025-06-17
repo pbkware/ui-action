@@ -22,5 +22,7 @@ debug.log
 /tsbuildinfo
 tsconfig.tsbuildinfo
 
+/docs
+
 # make sure pack tarballs are not accidentally commited
 *.tgz

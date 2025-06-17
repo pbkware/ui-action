@@ -1,0 +1,25 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "name": "UUI Action",
+  "tsconfig": "./tsconfig.json",
+  "entryPoints": [
+    "./src/code/public-api.ts",
+  ],
+  "alwaysCreateEntryPointModule": false,
+  "excludeInternal": true,
+  "readme": "README.md",
+  "includeVersion": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "router": "structure-dir",
+  "disableSources": true,
+  "hostedBaseUrl": "https://pbkware.klink.au/ui-action/",
+  // "projectDocuments": [
+  //   "src-docs/overview/index.md",
+  // ],
+  "out": "./docs",
+  "navigationLinks": {
+      "GitHub": "https://github.com/pbkware/ui-action",
+      "NPM": "https://www.npmjs.com/package/@pbkware/ui-action",
+  },
+}
