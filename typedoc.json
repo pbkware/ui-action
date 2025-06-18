@@ -1,6 +1,6 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "name": "UUI Action",
+  "name": "UI Action",
   "tsconfig": "./tsconfig.json",
   "entryPoints": [
     "./src/code/public-api.ts",
