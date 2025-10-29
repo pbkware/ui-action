@@ -2,9 +2,9 @@
   "$schema": "https://typedoc.org/schema.json",
   "name": "UI Action",
   "tsconfig": "./tsconfig.json",
-  "entryPoints": [
-    "./src/code/public-api.ts",
-  ],
+  "entryPoints": ["./src/code"],
+  "entryPointStrategy": "expand",
+  "exclude": ["./src/code/public-api.ts"],
   "alwaysCreateEntryPointModule": false,
   "excludeInternal": true,
   "readme": "README.md",
